@@ -1,5 +1,15 @@
 html {
   font-family: nta, arial, sans-serif;
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+body {
+  color: #fff;
+  padding: 2%;
+  width: 100%;
 }
 
 .free {
@@ -8,4 +18,45 @@ html {
 
 .busy {
   background-color: #c0392b;
+}
+
+.roomName {
+  font-size: 4em;
+  margin-bottom: 2%;
+  text-align: left;
+  width: 70%;
+  float: left;
+}
+
+.time {
+  font-size: 4em;
+  text-align: right;
+  float: right;
+  width: 30%;
+}
+
+.availability {
+  font-size: 15em;
+  line-height: 1;
+  text-align: left;
+}
+
+.clear {
+  clear: both;
+}
+
+.details {
+  font-size: 1.4em;
+  line-height: 1.5;
+  width: 80%;
+
+  h2 {
+    font-size: 2em;
+    margin-bottom: 2%;
+  }
+
+  .indent {
+    border-left: 5px solid #fff;
+    padding-left: 2%;
+  }
 }

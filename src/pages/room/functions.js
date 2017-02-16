@@ -1,4 +1,5 @@
 'use strict';
+
 const template = require('./template.marko');
 
 function get(req, res) {

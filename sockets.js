@@ -8,14 +8,39 @@ function connect(server) {
   io.on('connection', socket => {
     console.log('New socket connection');
 
+    socket.on('getRoomDetails', roomId => {
+      return got(`http://localhost:3000/api/Rooms/${roomId}`, {
+        json: true
+      })
+      .then(response => {
+        socket.emit('updateRoomDetails', response.body);
+      })
+      .catch(err => {
+        throw err;
+      });
+    });
+
     socket.on('checkBookings', roomId => {
       return checkForBookings(roomId)
       .then(booked => {
         if (booked) {
-          socket.emit('roomBusy');
+          socket.emit('roomBusy', booked);
         } else {
           socket.emit('roomFree');
         }
+      })
+      .catch(err => {
+        throw err;
+      });
+    });
+
+    socket.on('getNextBooking', roomId => {
+      return getNextBooking(roomId, {json: true})
+      .then(bookings => {
+        socket.emit('updateNextBooking', bookings);
+      })
+      .catch(err => {
+        throw err;
       });
     });
   });
@@ -46,8 +71,8 @@ function checkForBookings(roomId) {
           scope: {
             where: {
               and: [
-                {start: {gt: '2017-02-15'}},
-                {start: {lt: '2017-02-16'}}
+                {start: {lt: new Date()}},
+                {end: {gt: new Date()}}
               ]
             }
           }
@@ -58,9 +83,36 @@ function checkForBookings(roomId) {
   .then(response => {
     const booked = response.body.bookings.length > 0;
     if (booked) {
-      return true;
+      return response.body.bookings[0];
     }
     return false;
+  })
+  .catch(err => {
+    throw err;
+  });
+}
+
+function getNextBooking(roomId) {
+  return got(`http://localhost:3000/api/Rooms/${roomId}`, {
+    json: true,
+    query: {
+      filter: JSON.stringify({
+        include: {
+          relation: 'bookings',
+          scope: {
+            where: {
+              and: [
+                {start: {gt: new Date()}},
+                {start: {lt: '2017-02-17'}}
+              ]
+            }
+          }
+        }
+      })
+    }
+  })
+  .then(response => {
+    return response.body.bookings;
   })
   .catch(err => {
     throw err;

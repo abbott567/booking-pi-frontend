@@ -7,12 +7,20 @@
     <lasso-head/>
   </head>
   <body class="free">
-    <div id="time">${new Date().toISOString().substr(11, 5)}</div>
-    FREE
+    <h1 id="roomName" class="roomName">${data.name}</h1>
 
-    Up next:
-    BSP Meeting: 12:30 - 13:30
-    Booked by: Craig Abbott
+    <div id="time" class="time">${new Date().toISOString().substr(11, 5)}</div>
+    <div id="availability" class="availability"></div>
+    <div class="clear"></div>
+    <div id="details" class="details">
+      <h2>Up next:</h2>
+
+      <div class="indent">
+        <span id="meeting-time"></span><br />
+        <span id="meeting-desc"></span><br />
+        <span id="meeting-bookedBy"></span>
+      </div>
+    </div>
     <lasso-body/>
   </body>
 </html>

@@ -5,6 +5,6 @@ const {get} = require('./functions');
 
 const router = new express.Router();
 
-router.get('/', get);
+router.get('/:id', get);
 
 module.exports = router;

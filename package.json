@@ -23,6 +23,8 @@
     "lasso-sass": "^1.1.9",
     "marko": "^3.14.2",
     "marko-i18next": "^0.2.0",
+    "moment": "^2.17.1",
+    "reset-css": "^2.2.0",
     "socket.io": "^1.7.2"
   },
   "devDependencies": {
@@ -45,7 +47,6 @@
     ],
     "overrides": [
       {
-        "files": "src/common/application.js",
         "files": "src/pages/room/scripts.js",
         "esnext": false
       }
