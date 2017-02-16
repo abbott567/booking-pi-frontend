@@ -6,7 +6,7 @@ const http = require('http');
 const bodyParser = require('body-parser');
 const compression = require('compression');
 const express = require('express');
-const sockets = require('./sockets');
+const sockets = require('./sockets/backend-connect');
 
 // Configure Lasso.js
 require('lasso').configure(require('./config/lasso'));
