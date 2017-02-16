@@ -47,7 +47,7 @@
     ],
     "overrides": [
       {
-        "files": "src/pages/room/scripts.js",
+        "files": "src/pages/room/socket-functions.js",
         "esnext": false
       }
     ],

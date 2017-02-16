@@ -3,7 +3,7 @@
     "jquery/dist/jquery.js",
     "socket.io-client/dist/socket.io.min.js",
     "moment/min/moment.min.js",
-    "./scripts.js",
+    "./socket-functions.js",
     "reset-css/reset.css",
     "govuk-template-marko/static/stylesheets/fonts.css",
     "./styles.scss"

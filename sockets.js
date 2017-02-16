@@ -14,9 +14,6 @@ function connect(server) {
       })
       .then(response => {
         socket.emit('updateRoomDetails', response.body);
-      })
-      .catch(err => {
-        throw err;
       });
     });
 
@@ -28,9 +25,6 @@ function connect(server) {
         } else {
           socket.emit('roomFree');
         }
-      })
-      .catch(err => {
-        throw err;
       });
     });
 
