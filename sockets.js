@@ -52,7 +52,7 @@ function connect(server) {
       storedMinutes = newMinutes;
       io.emit('updateTime');
     }
-  }, 3000); // 1000
+  }, 3000);
 }
 
 function checkTime(storedMinutes, timeNow) {

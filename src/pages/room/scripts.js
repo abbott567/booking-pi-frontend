@@ -12,28 +12,36 @@ socket.on('updateTime', function () {
   socket.emit('checkBookings', '58a480dc825f024022e59d7a');
 });
 
+function updateStyles(booking) {
+  if (booking) {
+    $('body').removeClass('free');
+    $('body').addClass('busy');
+    $('#availability').text('busy');
+    $('#details h2').text('Meeting details:');
+    $('#details').html(
+      '<h2>Meeting details:</h2>' +
+      '<div class="indent">' +
+        '<span id="meeting-time">' +
+          moment(booking.start).format('HH:mm') + ' - ' + moment(booking.end).format('HH:mm') +
+        '</span><br />' +
+        '<span id="meeting-desc">' + booking.description + '</span><br />' +
+        '<span id="meeting-bookedBy">' + booking.name + '</span>' +
+      '</div>'
+    );
+  } else {
+    $('body').removeClass('busy');
+    $('body').addClass('free');
+    $('#availability').text('free');
+    socket.emit('getNextBooking', '58a480dc825f024022e59d7a');
+  }
+}
+
 socket.on('roomBusy', function (booking) {
-  $('body').removeClass('free');
-  $('body').addClass('busy');
-  $('#availability').text('busy');
-  $('#details h2').text('Meeting details:');
-  $('#details').html(
-    '<h2>Meeting details:</h2>' +
-    '<div class="indent">' +
-      '<span id="meeting-time">' +
-        moment(booking.start).format('HH:mm') + ' - ' + moment(booking.end).format('HH:mm') +
-      '</span><br />' +
-      '<span id="meeting-desc">' + booking.description + '</span><br />' +
-      '<span id="meeting-bookedBy">' + booking.name + '</span>' +
-    '</div>'
-  );
+  updateStyles(booking);
 });
 
 socket.on('roomFree', function () {
-  $('body').removeClass('busy');
-  $('body').addClass('free');
-  $('#availability').text('free');
-  socket.emit('getNextBooking', '58a480dc825f024022e59d7a');
+  updateStyles();
 });
 
 socket.on('updateNextBooking', function (bookings) {
