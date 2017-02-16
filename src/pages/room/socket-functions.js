@@ -13,29 +13,16 @@ socket.on('updateTime', function () {
 });
 
 socket.on('roomBusy', function (booking) {
-  updateStyles(booking);
+  updateStyles('busy');
+  updateMeetingInfo(booking);
 });
 
 socket.on('roomFree', function () {
-  updateStyles();
+  updateStyles('free');
 });
 
 socket.on('updateNextBooking', function (bookings) {
-  var booking = bookings[0];
-  if (bookings.length === 0) {
-    $('#details').html('<h2>This room is free for the rest of today</h2>');
-  } else {
-    $('#details').html(
-      '<h2>Up next:</h2>' +
-      '<div class="indent">' +
-        '<span id="meeting-time">' +
-          moment(booking.start).format('HH:mm') + ' - ' + moment(booking.end).format('HH:mm') +
-        '</span><br />' +
-        '<span id="meeting-desc">' + booking.description + '</span><br />' +
-        '<span id="meeting-bookedBy">' + booking.name + '</span>' +
-      '</div>'
-    );
-  }
+  updateMeetingInfo(bookings[0]);
 });
 
 $(document).ready(function () {
@@ -43,12 +30,22 @@ $(document).ready(function () {
   socket.emit('checkBookings', '58a480dc825f024022e59d7a');
 });
 
-function updateStyles(booking) {
-  if (booking) {
+function updateStyles(status) {
+  if (status === 'busy') {
     $('body').removeClass('free');
     $('body').addClass('busy');
     $('#availability').text('busy');
     $('#details h2').text('Meeting details:');
+  } else {
+    $('body').removeClass('busy');
+    $('body').addClass('free');
+    $('#availability').text('free');
+    socket.emit('getNextBooking', '58a480dc825f024022e59d7a');
+  }
+}
+
+function updateMeetingInfo(booking) {
+  if (booking) {
     $('#details').html(
       '<h2>Meeting details:</h2>' +
       '<div class="indent">' +
@@ -60,9 +57,6 @@ function updateStyles(booking) {
       '</div>'
     );
   } else {
-    $('body').removeClass('busy');
-    $('body').addClass('free');
-    $('#availability').text('free');
-    socket.emit('getNextBooking', '58a480dc825f024022e59d7a');
+    $('#details').html('<h2>This room is free for the rest of today</h2>');
   }
 }
