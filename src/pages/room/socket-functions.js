@@ -3,6 +3,11 @@
 
 var socket = io.connect();
 
+$(document).ready(function () {
+  socket.emit('getRoomDetails', '58a480dc825f024022e59d7a');
+  socket.emit('checkBookings', '58a480dc825f024022e59d7a');
+});
+
 socket.on('updateRoomDetails', function (room) {
   $('#roomName').text(room.name);
 });
@@ -14,20 +19,16 @@ socket.on('updateTime', function () {
 
 socket.on('roomBusy', function (booking) {
   updateStyles('busy');
-  updateMeetingInfo(booking);
+  updateMeetingInfo('busy', booking);
 });
 
 socket.on('roomFree', function () {
   updateStyles('free');
+  updateMeetingInfo('free');
 });
 
 socket.on('updateNextBooking', function (bookings) {
-  updateMeetingInfo(bookings[0]);
-});
-
-$(document).ready(function () {
-  socket.emit('getRoomDetails', '58a480dc825f024022e59d7a');
-  socket.emit('checkBookings', '58a480dc825f024022e59d7a');
+  updateMeetingInfo('free', bookings);
 });
 
 function updateStyles(status) {
@@ -35,7 +36,6 @@ function updateStyles(status) {
     $('body').removeClass('free');
     $('body').addClass('busy');
     $('#availability').text('busy');
-    $('#details h2').text('Meeting details:');
   } else {
     $('body').removeClass('busy');
     $('body').addClass('free');
@@ -44,10 +44,14 @@ function updateStyles(status) {
   }
 }
 
-function updateMeetingInfo(booking) {
+function updateMeetingInfo(status, booking) {
   if (booking) {
+    var h2 = 'Up next';
+    if (status === 'busy') {
+      h2 = 'Meeting details:';
+    }
     $('#details').html(
-      '<h2>Meeting details:</h2>' +
+      '<h2>' + h2 + '</h2>' +
       '<div class="indent">' +
         '<span id="meeting-time">' +
           moment(booking.start).format('HH:mm') + ' - ' + moment(booking.end).format('HH:mm') +

@@ -106,7 +106,11 @@ function getNextBooking(roomId) {
     }
   })
   .then(response => {
-    return response.body.bookings;
+    const booked = response.body.bookings.length > 0;
+    if (booked) {
+      return response.body.bookings[0];
+    }
+    return false;
   })
   .catch(err => {
     throw err;
