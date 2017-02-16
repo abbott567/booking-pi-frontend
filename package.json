@@ -19,6 +19,7 @@
     "govuk-template-marko": "^0.19.2",
     "jquery": "^1.12.4",
     "lasso": "~2.10.4",
+    "lasso-babel-transform": "^0.4.0",
     "lasso-sass": "^1.1.9",
     "marko": "^3.14.2",
     "marko-i18next": "^0.2.0",
@@ -45,6 +46,7 @@
     "overrides": [
       {
         "files": "src/common/application.js",
+        "files": "src/pages/room/scripts.js",
         "esnext": false
       }
     ],

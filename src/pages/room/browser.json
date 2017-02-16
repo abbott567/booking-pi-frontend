@@ -1,6 +1,7 @@
 {
   "dependencies": [
     "jquery/dist/jquery.js",
+    "socket.io-client/dist/socket.io.min.js",
     "./scripts.js",
     "govuk-template-marko/static/stylesheets/fonts.css",
     "./styles.scss"

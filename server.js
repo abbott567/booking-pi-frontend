@@ -2,19 +2,22 @@
 
 require('marko/node-require').install();
 
+const http = require('http');
 const bodyParser = require('body-parser');
 const compression = require('compression');
 const express = require('express');
+const sockets = require('./sockets');
 
 // Configure Lasso.js
 require('lasso').configure(require('./config/lasso'));
 
 const app = express();
 const port = process.env.PORT || 4000;
+const server = http.createServer(app);
+sockets.connect(server);
 
 // Enable compression
 app.use(compression());
-
 // Disable x-powered-by header
 app.disable('x-powered-by');
 
@@ -42,8 +45,8 @@ app.use((req, res, next) => {
 // Page routes
 app.use('/', require('./src/pages/room'));
 
-// Listen!
-app.listen(port, err => {
+// listen for new web clients:
+server.listen(port, err => {
   if (err) {
     throw err;
   }
