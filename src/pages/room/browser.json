@@ -1,0 +1,8 @@
+{
+  "dependencies": [
+    "jquery/dist/jquery.js",
+    "./scripts.js",
+    "govuk-template-marko/static/stylesheets/fonts.css",
+    "./styles.scss"
+  ]
+}
