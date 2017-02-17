@@ -1,5 +1,6 @@
 const socketIo = require('socket.io');
-const {checkTime, getRoomWithBookings} = require('./backend-functions');
+const getRoomWithBookings = require('../lib/get-room-with-bookings');
+const {checkTime, sortBookings, setRoomStatus} = require('./backend-functions');
 
 function connect(server) {
   const io = socketIo.listen(server);
@@ -9,7 +10,10 @@ function connect(server) {
     console.log('New socket connection');
 
     socket.on('newSocketConnection', roomId => {
-      return getRoomWithBookings(roomId)
+      const today = new Date();
+      return getRoomWithBookings(roomId, today)
+      .then(sortBookings)
+      .then(setRoomStatus)
       .then(response => {
         socket.emit('initialPageLoad', response);
       })
@@ -19,7 +23,10 @@ function connect(server) {
     });
 
     socket.on('updateBookings', roomId => {
-      return getRoomWithBookings(roomId)
+      const today = new Date();
+      return getRoomWithBookings(roomId, today)
+      .then(sortBookings)
+      .then(setRoomStatus)
       .then(response => {
         socket.emit('updatePage', response);
       })

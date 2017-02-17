@@ -1,25 +1,62 @@
+<script marko-init>
+  const isActiveBooking = require('../../utils/is-active-booking');
+  const getNextBooking = require('../../utils/get-next-booking');
+  const formatTime = require('../../utils/format-time');
+</script>
+
 <lasso-page package-path="./browser.json"></lasso-page>
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-    <title>YO</title>
+    <meta http-equiv="refresh" content="60">
+    <title>${data.name}</title>
     <lasso-head/>
   </head>
-  <body class="free">
-    <h1 id="roomName" class="roomName">${data.name}</h1>
 
-    <div id="time" class="time">${new Date().toISOString().substr(11, 5)}</div>
-    <div id="availability" class="availability"></div>
-    <div class="clear"></div>
+  <var nextBooking=getNextBooking(data.bookings)/>
+  <var isActive=isActiveBooking(nextBooking)/>
+  <var roomStatus=(isActive ? 'busy' : 'free')/>
+
+  <body class="${roomStatus}" data-room-id="${data.roomId}">
+    <h1 id="roomName" class="room-name">
+      ${data.name}
+    </h1>
+
+    <div id="time" class="time">
+      ${new Date().toISOString().substr(11, 5)}
+    </div>
+
+    <div id="availability" class="availability">
+      ${roomStatus}
+    </div>
+
     <div id="details" class="details">
-      <h2>Up next:</h2>
+      <if(nextBooking)>
+        <h2>${isActive ? 'Meeting details' : 'Up next'}</h2>
 
-      <div class="indent">
-        <span id="meeting-time"></span><br />
-        <span id="meeting-desc"></span><br />
-        <span id="meeting-bookedBy"></span>
-      </div>
+        <div id="indent" class="indent">
+          <span id="meeting-time">
+            ${formatTime(new Date(nextBooking.start))} -
+            ${formatTime(new Date(nextBooking.end))}
+          </span>
+          <span id="meeting-desc">${nextBooking.description}</span>
+          <span id="meeting-bookedBy">${nextBooking.name}</span>
+        </div>
+      </if>
+      <else>
+        <h2>This room is free for the rest of today</h2>
+
+        <div id="indent" class="indent">
+          <span id="meeting-time"></span>
+          <span id="meeting-desc"></span>
+          <span id="meeting-bookedBy"></span>
+        </div>
+      </else>
+    </div>
+
+    <div class="beta-banner">
+      BETA
     </div>
     <lasso-body/>
   </body>
