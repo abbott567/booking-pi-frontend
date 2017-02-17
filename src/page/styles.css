@@ -8,11 +8,8 @@ html, body, h1, h2, div, span {
 body {
   line-height: 1;
   color: #fff;
-  font-family: nta, arial, sans-serif;
+  font-family: nta, sans-serif;
   padding: 2% 2% 0;
-}
-
-.free {
   background-color: #12b657;
 }
 
@@ -63,8 +60,7 @@ body {
 .beta-banner {
   bottom: 0;
   font-size: 1.4em;
-  margin-bottom: 2%;
-  margin-right: 2%;
+  margin: 2%;
   opacity: .3;
   position: absolute;
   right: 0;
