@@ -38,6 +38,8 @@ function checkForBookings(roomId) {
 }
 
 function getNextBooking(roomId) {
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
   return got(`http://localhost:3000/api/Rooms/${roomId}`, {
     json: true,
     query: {
@@ -48,7 +50,7 @@ function getNextBooking(roomId) {
             where: {
               and: [
                 {start: {gt: new Date()}},
-                {start: {lt: '2017-02-17'}}
+                {start: {lt: tomorrow}}
               ]
             }
           }
