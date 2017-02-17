@@ -1,6 +1,5 @@
 const socketIo = require('socket.io');
-const got = require('got');
-const {checkTime, checkForBookings, getNextBooking} = require('./backend-functions');
+const {checkTime, getRoomWithBookings} = require('./backend-functions');
 
 function connect(server) {
   let storedMinutes = new Date().getSeconds(); // mins
@@ -9,33 +8,23 @@ function connect(server) {
   io.on('connection', socket => {
     console.log('New socket connection');
 
-    socket.on('getRoomDetails', roomId => {
-      return got(`http://localhost:3000/api/Rooms/${roomId}`, {
-        json: true
-      })
+    socket.on('newSocketConnection', roomId => {
+      return getRoomWithBookings(roomId)
       .then(response => {
-        socket.emit('updateRoomDetails', response.body);
-      });
-    });
-
-    socket.on('checkBookings', roomId => {
-      return checkForBookings(roomId)
-      .then(booked => {
-        if (booked) {
-          socket.emit('roomBusy', booked);
-        } else {
-          socket.emit('roomFree');
-        }
-      });
-    });
-
-    socket.on('getNextBooking', roomId => {
-      return getNextBooking(roomId, {json: true})
-      .then(bookings => {
-        socket.emit('updateNextBooking', bookings);
+        socket.emit('initialPageLoad', response);
       })
       .catch(err => {
-        throw err;
+        console.log(err);
+      });
+    });
+
+    socket.on('updateBookings', roomId => {
+      return getRoomWithBookings(roomId)
+      .then(response => {
+        socket.emit('updatePage', response);
+      })
+      .catch(err => {
+        console.log(err);
       });
     });
   });
