@@ -37,27 +37,27 @@ function updateStyles(room) {
 }
 
 function updateMeetingInfo(room) {
-  var html;
+  var $booking;
   if (room.status === 'busy') {
-    html = '<h2>Meeting details:</h2>' +
-    '<div class="indent">' +
-      '<span id="meeting-time">' +
-        moment(room.currentBooking[0].start).format('HH:mm') + ' - ' + moment(room.currentBooking[0].end).format('HH:mm') +
-      '</span><br />' +
-      '<span id="meeting-desc">' + room.currentBooking[0].description + '</span><br />' +
-      '<span id="meeting-bookedBy">' + room.currentBooking[0].name + '</span>' +
-    '</div>';
+    $booking = room.currentBooking[0];
+    $('#details h2').text('Meeting details:');
+    $('#meeting-desc').text($booking.description);
+    $('#meeting-name').text($booking.name);
+    $('#meeting-time').text(
+      moment($booking.start).format('HH:mm') + ' - ' + moment($booking.end).format('HH:mm')
+    );
+    $('#indent').show();
   } else if (room.status === 'freeForNow') {
-    html = '<h2>Meeting details:</h2>' +
-    '<div class="indent">' +
-      '<span id="meeting-time">' +
-        moment(room.futureBookings[0].start).format('HH:mm') + ' - ' + moment(room.futureBookings[0].end).format('HH:mm') +
-      '</span><br />' +
-      '<span id="meeting-desc">' + room.futureBookings[0].description + '</span><br />' +
-      '<span id="meeting-bookedBy">' + room.futureBookings[0].name + '</span>' +
-    '</div>';
+    $booking = room.futureBookings[0];
+    $('#details h2').text('Up next:');
+    $('#meeting-desc').text($booking.description);
+    $('#meeting-name').text($booking.name);
+    $('#meeting-time').text(
+      moment($booking.start).format('HH:mm') + ' - ' + moment($booking.end).format('HH:mm')
+    );
+    $('#indent').show();
   } else {
-    html = '<h2>This room is free for the rest of today</h2>';
+    $('#details h2').text('This room is free for the rest of today');
+    $('#indent').hide();
   }
-  $('#details').html(html);
 }

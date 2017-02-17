@@ -35,7 +35,7 @@
       <if(nextBooking)>
         <h2>${isActive ? 'Meeting details' : 'Up next'}</h2>
 
-        <div class="indent">
+        <div id="indent" class="indent">
           <span id="meeting-time">
             ${formatTime(new Date(nextBooking.start))} -
             ${formatTime(new Date(nextBooking.end))}
