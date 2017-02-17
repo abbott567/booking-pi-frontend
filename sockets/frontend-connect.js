@@ -40,7 +40,6 @@ function updateStyles(status) {
     $('body').removeClass('busy');
     $('body').addClass('free');
     $('#availability').text('free');
-    socket.emit('getNextBooking', '58a480dc825f024022e59d7a');
   }
 }
 
