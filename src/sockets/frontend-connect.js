@@ -2,9 +2,10 @@
 /* global moment */
 
 var socket = io.connect();
+var roomId = window.location.pathname;
 
 $(document).ready(function () {
-  socket.emit('newSocketConnection', '58a480dc825f024022e59d7a');
+  socket.emit('newSocketConnection', roomId);
 });
 
 socket.on('initialPageLoad', function (room) {
@@ -15,7 +16,7 @@ socket.on('initialPageLoad', function (room) {
 
 socket.on('updateTime', function () {
   $('#time').text(new Date().toISOString().substr(11, 5));
-  socket.emit('updateBookings', '58a480dc825f024022e59d7a');
+  socket.emit('updateBookings', roomId);
 });
 
 socket.on('updatePage', function (room) {

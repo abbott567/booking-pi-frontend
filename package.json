@@ -47,7 +47,7 @@
     ],
     "overrides": [
       {
-        "files": "sockets/frontend-connect.js",
+        "files": "src/sockets/frontend-connect.js",
         "esnext": false
       }
     ],

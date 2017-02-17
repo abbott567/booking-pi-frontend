@@ -1,52 +1,42 @@
-html {
-  font-family: nta, arial, sans-serif;
-
-  * {
-    box-sizing: border-box;
-  }
-}
+$text-colour: #fff;
+$free: #12b657;
+$busy: #ed1c24;
 
 body {
-  color: #fff;
-  padding: 2%;
-  overflow: hidden;
-  width: 100%;
+  color: $text-colour;
+  font-family: nta, arial, sans-serif;
+  padding: 2% 2% 0;
 }
 
 .free {
-  background-color: #12b657;
+  background-color: $free;
 }
 
 .busy {
-  background-color: #ed1c24;
+  background-color: $busy;
 }
 
-.roomName {
+.room-name {
+  float: left;
   font-size: 4em;
   margin-bottom: 2%;
-  text-align: left;
   width: 70%;
-  float: left;
 }
 
 .time {
+  float: right;
   font-size: 4em;
   text-align: right;
-  float: right;
   width: 30%;
 }
 
 .availability {
   font-size: 12em;
   line-height: 1;
-  text-align: left;
-}
-
-.clear {
-  clear: both;
 }
 
 .details {
+  clear: both;
   font-size: 1.4em;
   line-height: 1.5;
   width: 80%;
@@ -55,9 +45,13 @@ body {
     font-size: 2em;
     margin-bottom: 2%;
   }
+}
 
-  .indent {
-    border-left: 5px solid #fff;
-    padding-left: 2%;
+.indent {
+  border-left: 5px solid $text-colour;
+  padding-left: 2%;
+
+  span {
+    display: block;
   }
 }

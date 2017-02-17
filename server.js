@@ -6,7 +6,7 @@ const http = require('http');
 const bodyParser = require('body-parser');
 const compression = require('compression');
 const express = require('express');
-const sockets = require('./sockets/backend-connect');
+const sockets = require('./src/sockets/backend-connect');
 
 // Configure Lasso.js
 require('lasso').configure(require('./config/lasso'));
@@ -18,6 +18,7 @@ sockets.connect(server);
 
 // Enable compression
 app.use(compression());
+
 // Disable x-powered-by header
 app.disable('x-powered-by');
 

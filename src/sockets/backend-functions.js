@@ -1,46 +1,7 @@
-const got = require('got');
-const addDays = require('date-fns/add_days');
-
 function checkTime(storedMinutes, timeNow) {
   if (storedMinutes !== timeNow) {
     return true;
   }
-}
-
-function formatDate(date) {
-  return date.toISOString().substr(0, 10);
-}
-
-function getRoomWithBookings(roomId) {
-  const today = new Date();
-  const tomorrow = addDays(today, 1);
-  return got(`http://localhost:3000/api/Rooms/${roomId}`, {
-    json: true,
-    query: {
-      filter: JSON.stringify({
-        include: {
-          relation: 'bookings',
-          scope: {
-            where: {
-              and: [
-                {start: {gt: formatDate(today)}},
-                {start: {lt: formatDate(tomorrow)}}
-              ]
-            }
-          }
-        }
-      })
-    }
-  })
-  .then(response => {
-    const room = response.body;
-    sortBookings(room);
-    setRoomStatus(room);
-    return room;
-  })
-  .catch(err => {
-    throw err;
-  });
 }
 
 function setRoomStatus(room) {
@@ -54,8 +15,10 @@ function setRoomStatus(room) {
   return room;
 }
 
-function sortBookings(room) {
+function sortBookings(response) {
+  const room = response.body;
   const timeNow = new Date();
+
   room.prevBookings = [];
   room.futureBookings = [];
   room.currentBooking = [];
@@ -75,4 +38,4 @@ function sortBookings(room) {
   return room;
 }
 
-module.exports = {checkTime, getRoomWithBookings};
+module.exports = {checkTime, sortBookings, setRoomStatus};
