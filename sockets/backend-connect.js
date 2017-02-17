@@ -2,7 +2,7 @@ const socketIo = require('socket.io');
 const {checkTime, getRoomWithBookings} = require('./backend-functions');
 
 function connect(server) {
-  let storedMinutes = new Date().getSeconds(); // mins
+  let storedMinutes = new Date().getMinutes();
   const io = socketIo.listen(server);
 
   io.on('connection', socket => {
@@ -30,7 +30,7 @@ function connect(server) {
   });
 
   setInterval(() => {
-    const newMinutes = new Date().getSeconds(); // mins
+    const newMinutes = new Date().getMinutes();
     const timeHasChanged = checkTime(storedMinutes, newMinutes);
     if (timeHasChanged) {
       storedMinutes = newMinutes;
