@@ -13,6 +13,24 @@ body {
   background-color: #12b657;
 }
 
+.broken {
+  background: #000;
+}
+
+.broken h1 {
+  font-size: 1.3em;
+  color: #fff;
+  font-family: monospace;
+}
+
+.user {
+  color: #0f0;
+}
+
+.tilde {
+  color: #63f;
+}
+
 .busy {
   background-color: #ed1c24;
 }

@@ -9,49 +9,60 @@
 <html lang="en-GB">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="refresh" content="60">
-    <title>${data.name}</title>
+    <meta http-equiv="refresh" content="5">
+    <title>Room status</title>
     <lasso-head/>
   </head>
 
-  <var nextBooking=getNextBooking(data.bookings)/>
-  <var isActive=isActiveBooking(nextBooking)/>
-  <var roomStatus=(isActive ? 'busy' : 'free')/>
+  <await(response from data.apiRequest)>
+    <await-error>
+      <body class="broken">
+        <h1>
+          <span class="user">bvp@pi</span> <span class="tilde">~ $</span>
+            Unable to retrive room bookings!
+        </h1>
+      </body>
+    </await-error>
 
-  <body class="${roomStatus}" data-room-id="${data.roomId}">
-    <h1 id="roomName" class="room-name">
-      ${data.name}
-    </h1>
+    <var nextBooking=getNextBooking(response.body.bookings)/>
+    <var isActive=isActiveBooking(nextBooking)/>
+    <var roomStatus=(isActive ? 'busy' : 'free')/>
 
-    <div id="time" class="time">
-      ${new Date().toISOString().substr(11, 5)}
-    </div>
+    <body class="${roomStatus}" data-room-id="${data.roomId}">
+      <h1 id="roomName" class="room-name">
+        ${response.body.name}
+      </h1>
 
-    <div id="availability" class="availability">
-      ${roomStatus}
-    </div>
+      <div id="time" class="time">
+        ${new Date().toISOString().substr(11, 5)}
+      </div>
 
-    <div id="details" class="details">
-      <if(nextBooking)>
-        <h2>${isActive ? 'Meeting details' : 'Up next'}</h2>
+      <div id="availability" class="availability">
+        ${roomStatus}
+      </div>
 
-        <div class="indent">
-          <span id="meeting-time">
-            ${formatTime(new Date(nextBooking.start))} -
-            ${formatTime(new Date(nextBooking.end))}
-          </span>
-          <span id="meeting-desc">${nextBooking.description}</span>
-          <span id="meeting-bookedBy">${nextBooking.name}</span>
-        </div>
-      </if>
-      <else>
-        <h2>This room is free for the rest of today</h2>
-      </else>
-    </div>
+      <div id="details" class="details">
+        <if(nextBooking)>
+          <h2>${isActive ? 'Meeting details' : 'Up next'}</h2>
 
-    <div class="beta-banner">
-      BETA
-    </div>
-    <lasso-body/>
-  </body>
+          <div class="indent">
+            <span id="meeting-time">
+              ${formatTime(new Date(nextBooking.start))} -
+              ${formatTime(new Date(nextBooking.end))}
+            </span>
+            <span id="meeting-desc">${nextBooking.description}</span>
+            <span id="meeting-bookedBy">${nextBooking.name}</span>
+          </div>
+        </if>
+        <else>
+          <h2>This room is free for the rest of today</h2>
+        </else>
+      </div>
+
+      <div class="beta-banner">
+        BETA
+      </div>
+      <lasso-body/>
+    </body>
+  </await>
 </html>
