@@ -1,0 +1,6 @@
+{
+  "dependencies": [
+    "govuk-template-marko/static/stylesheets/fonts.css",
+    "./styles.css"
+  ]
+}

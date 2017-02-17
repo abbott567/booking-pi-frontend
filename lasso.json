@@ -1,0 +1,7 @@
+{
+  "outputDir": "static",
+  "fingerprintsEnabled": true,
+  "minify": true,
+  "resolveCssUrls": true,
+  "bundlingEnabled": true
+}

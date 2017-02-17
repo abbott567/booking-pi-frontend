@@ -1,19 +1,23 @@
-$text-colour: #fff;
-$free: #12b657;
-$busy: #ed1c24;
+html, body, h1, h2, div, span {
+  font-size: 100%;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+}
 
 body {
-  color: $text-colour;
+  line-height: 1;
+  color: #fff;
   font-family: nta, arial, sans-serif;
   padding: 2% 2% 0;
 }
 
 .free {
-  background-color: $free;
+  background-color: #12b657;
 }
 
 .busy {
-  background-color: $busy;
+  background-color: #ed1c24;
 }
 
 .room-name {
@@ -40,20 +44,20 @@ body {
   font-size: 1.4em;
   line-height: 1.5;
   width: 80%;
+}
 
-  h2 {
-    font-size: 2em;
-    margin-bottom: 2%;
-  }
+.details h2 {
+  font-size: 2em;
+  margin-bottom: 2%;
 }
 
 .indent {
-  border-left: 5px solid $text-colour;
+  border-left: 5px solid #fff;
   padding-left: 2%;
+}
 
-  span {
-    display: block;
-  }
+.indent span {
+  display: block;
 }
 
 .beta-banner {

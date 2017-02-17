@@ -1,7 +1,7 @@
 <script marko-init>
-  const isActiveBooking = require('../../utils/is-active-booking');
-  const getNextBooking = require('../../utils/get-next-booking');
-  const formatTime = require('../../utils/format-time');
+  const isActiveBooking = require('../utils/is-active-booking');
+  const getNextBooking = require('../utils/get-next-booking');
+  const formatTime = require('../utils/format-time');
 </script>
 
 <lasso-page package-path="./browser.json"></lasso-page>
@@ -35,7 +35,7 @@
       <if(nextBooking)>
         <h2>${isActive ? 'Meeting details' : 'Up next'}</h2>
 
-        <div id="indent" class="indent">
+        <div class="indent">
           <span id="meeting-time">
             ${formatTime(new Date(nextBooking.start))} -
             ${formatTime(new Date(nextBooking.end))}
@@ -46,12 +46,6 @@
       </if>
       <else>
         <h2>This room is free for the rest of today</h2>
-
-        <div id="indent" class="indent">
-          <span id="meeting-time"></span>
-          <span id="meeting-desc"></span>
-          <span id="meeting-bookedBy"></span>
-        </div>
       </else>
     </div>
 

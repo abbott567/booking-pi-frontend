@@ -2,52 +2,22 @@
 
 require('marko/node-require').install();
 
-const http = require('http');
-const bodyParser = require('body-parser');
 const compression = require('compression');
 const express = require('express');
-const sockets = require('./src/sockets/backend-connect');
 
-// Configure Lasso.js
-require('lasso').configure(require('./config/lasso'));
+require('lasso').configure(require('./lasso'));
 
 const app = express();
 const port = process.env.PORT || 4000;
-const server = http.createServer(app);
-sockets.connect(server);
+const maxage = 31536000;
 
-// Enable compression
 app.use(compression());
-
-// Disable x-powered-by header
 app.disable('x-powered-by');
+app.use(require('lasso/middleware').serveStatic({sendOptions: {maxage}}));
 
-// Uptime ping end point
-app.get('/ping', (req, res) => {
-  res.setHeader('Content-Type', 'text/plain');
-  res.status(200).send('pong');
-});
+app.get('/:roomId', require('./src/page'));
 
-// Serve static assets
-app.use(require('lasso/middleware').serveStatic());
-
-app.set('trust proxy', 1);
-
-// Load Middleware
-app.use(bodyParser.urlencoded({extended: true}));
-// app.use(helmet(require('./config/helmet')));
-
-// Set Content-Type header to text to make compression work for output stream
-app.use((req, res, next) => {
-  res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  next();
-});
-
-// Page routes
-app.use('/', require('./src/pages/room'));
-
-// listen for new web clients:
-server.listen(port, err => {
+app.listen(port, err => {
   if (err) {
     throw err;
   }
