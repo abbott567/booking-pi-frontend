@@ -9,6 +9,8 @@ $(document).ready(function () {
 
 socket.on('initialPageLoad', function (room) {
   $('#roomName').text(room.name);
+  updateStyles(room);
+  updateMeetingInfo(room);
 });
 
 socket.on('updateTime', function () {
