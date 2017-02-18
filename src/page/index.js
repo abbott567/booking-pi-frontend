@@ -2,7 +2,6 @@
 
 const got = require('got');
 const addDays = require('date-fns/add_days');
-const formatDate = require('../utils/format-date');
 const template = require('./template.marko');
 
 const apiUrl = (process.env.API_URL || 'http://localhost:3000') + '/api';
@@ -18,14 +17,15 @@ module.exports = function (req, res) {
       json: true,
       query: {
         filter: JSON.stringify({
+          limit: 1,
           include: {
             relation: 'bookings',
             scope: {
               order: 'start ASC',
               where: {
                 and: [
-                  {start: {gt: formatDate(today)}},
-                  {start: {lt: formatDate(tomorrow)}}
+                  {end: {gt: today.toISOString()}},
+                  {end: {lt: tomorrow.toISOString().substr(0, 10)}}
                 ]
               }
             }

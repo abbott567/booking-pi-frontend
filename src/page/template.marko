@@ -1,6 +1,5 @@
 <script marko-init>
   const isActiveBooking = require('../utils/is-active-booking');
-  const getNextBooking = require('../utils/get-next-booking');
   const formatTime = require('../utils/format-time');
 </script>
 
@@ -24,7 +23,7 @@
       </body>
     </await-error>
 
-    <var nextBooking=getNextBooking(response.body.bookings)/>
+    <var nextBooking=response.body.bookings[0]/>
     <var isActive=isActiveBooking(nextBooking)/>
     <var roomStatus=(isActive ? 'busy' : 'free')/>
 
