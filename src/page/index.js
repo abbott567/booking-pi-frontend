@@ -7,7 +7,7 @@ const template = require('./template.marko');
 const apiUrl = (process.env.API_URL || 'http://localhost:3000') + '/api';
 
 module.exports = function (req, res) {
-  const {roomId} = req.params;
+  const roomId = req.path.substr(1);
   const today = new Date();
   const tomorrow = addDays(today, 1);
 

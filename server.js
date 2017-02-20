@@ -14,7 +14,7 @@ app.use(compression());
 app.disable('x-powered-by');
 app.use(require('lasso/middleware').serveStatic({sendOptions: {maxage}}));
 
-app.get('/:roomId', require('./src/page'));
+app.use(require('./src/page'));
 
 app.listen(port, err => {
   if (err) {
