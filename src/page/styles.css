@@ -5,17 +5,23 @@ html, body, h1, h2, div, span {
   padding: 0;
 }
 
+html {
+  height: 100%;
+}
+
 body {
-  line-height: 1;
+  background-color: #12b657;
   color: #fff;
   cursor: none;
   font-family: nta, sans-serif;
+  line-height: 1;
   padding: 2% 2% 0;
-  background-color: #12b657;
 }
 
 .broken {
+  box-sizing: border-box;
   background: #000;
+  min-height: 100%;
 }
 
 .broken h1 {
