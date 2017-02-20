@@ -8,6 +8,7 @@ html, body, h1, h2, div, span {
 body {
   line-height: 1;
   color: #fff;
+  cursor: none;
   font-family: nta, sans-serif;
   padding: 2% 2% 0;
   background-color: #12b657;
