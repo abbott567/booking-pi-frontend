@@ -24,7 +24,7 @@ body {
   min-height: 100%;
 }
 
-.broken h1 {
+.broken {
   font-size: 1.3em;
   color: #fff;
   font-family: monospace;
