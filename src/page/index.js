@@ -4,11 +4,12 @@ const got = require('got');
 const addDays = require('date-fns/add_days');
 const template = require('./template.marko');
 
-const apiUrl = (process.env.API_URL || 'http://localhost:3000') + '/api';
+const apiUrl = (process.env.API_URL || 'https://room-bookings-api.herokuapp.com') + '/api';
 
 module.exports = function (req, res) {
   const roomId = req.path.substr(1);
-  const today = new Date();
+  const now = new Date();
+  const today = new Date(now.getTime() - (now.getTimezoneOffset() * 60000));
   const tomorrow = addDays(today, 1);
 
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
