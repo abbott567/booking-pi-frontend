@@ -1,4 +1,5 @@
 <script marko-init>
+  const parseDateIgnoreTimzone = require('../utils/parse-date-ignore-timezone');
   const isActiveBooking = require('../utils/is-active-booking');
   const formatTime = require('../utils/format-time');
 </script>
@@ -51,8 +52,8 @@
 
           <div class="indent">
             <span id="meeting-time">
-              ${formatTime(new Date(nextBooking.start))} -
-              ${formatTime(new Date(nextBooking.end))}
+              ${formatTime(parseDateIgnoreTimzone(nextBooking.start))} -
+              ${formatTime(parseDateIgnoreTimzone(nextBooking.end))}
             </span>
             <span id="meeting-desc">${nextBooking.description}</span>
             <span id="meeting-bookedBy">${nextBooking.name}</span>
