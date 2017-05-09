@@ -4,7 +4,7 @@ const got = require('got');
 const addDays = require('date-fns/add_days');
 const template = require('./template.marko');
 
-const apiUrl = (process.env.API_URL || 'https://room-bookings-api.herokuapp.com') + '/api';
+const apiUrl = process.env.API_URL + '/api';
 
 module.exports = function (req, res) {
   const roomId = req.path.substr(1);
