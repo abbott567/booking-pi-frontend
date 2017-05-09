@@ -24,7 +24,7 @@ Environment=API_URL=http://url-to-your-booking-api.com
 
 ### Step 3
 
-The PI uses the API by using the rooms ID from the MongoDB on the end of it's URL. For example, if your room looked like the following, then your url would be `http://localhost:3000/12345678`:
+The PI uses the API by using the rooms ID from the MongoDB on the end of it's URL. For example, if your room looked like the following, then your url would be `http://localhost:4000/12345678`:
 
 ```
 {
@@ -42,7 +42,7 @@ nano /home/pi/.config/lxsession/LXDE-pi/autostart
 And amend the following line by adding your room ID on the end:
 
 ```
-@chromium-browser --kiosk --incognito http://localhost:3000/12345678
+@chromium-browser --kiosk --incognito http://localhost:4000/12345678
 ```
 
 ## Environment Variables
