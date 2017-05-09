@@ -1,4 +1,4 @@
-# Room Bookings, Pi Frontent
+# Room Bookings, Pi Frontend
 
 This is the frontend application for the Raspberry Pi setup that connects to the [Booking API](https://github.com/gunjam/booking-api). If you don't have an instance of the the API hosted anywhere on the web, you will need to do that first.
 
