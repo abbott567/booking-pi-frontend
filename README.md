@@ -47,5 +47,5 @@ And amend the following line by adding your room ID on the end:
 
 ## Environment Variables
 
-`API_URL` = The URL to your API application.
+`API_URL` = The URL to your API application.  
 `PORT` = Defaults to 4000
